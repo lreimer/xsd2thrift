@@ -7,3 +7,7 @@
 
 target
 src/test/data/actual/
+
+.idea
+*.iml
+dependency-reduced-pom.xml
