@@ -28,7 +28,7 @@ import java.util.Map;
 public interface IMarshaller {
 	String writeInclude(String namespace);
 
-	String writeHeader(String namespace);
+    String writeHeader(String namespace, String name);
 
 	String writeEnumHeader(String name);
 
@@ -50,4 +50,6 @@ public interface IMarshaller {
 	boolean isCircularDependencySupported();
 
 	void setCustomMappings(Map<String, String> customMappings);
+
+    String getName();
 }

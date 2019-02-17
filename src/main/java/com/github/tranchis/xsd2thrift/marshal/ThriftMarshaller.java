@@ -67,7 +67,7 @@ public class ThriftMarshaller implements IMarshaller {
 	}
 
 	@Override
-	public String writeHeader(String namespace) {
+	public String writeHeader(String namespace, String name) {
 		String res;
 
 		if (namespace != null && !namespace.isEmpty()) {
@@ -192,6 +192,11 @@ public class ThriftMarshaller implements IMarshaller {
 				typeMapping.put(entry.getKey(), entry.getValue());
 			}
 		}
+	}
+
+	@Override
+	public String getName() {
+		return "thrift";
 	}
 
 }

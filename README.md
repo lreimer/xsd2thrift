@@ -1,7 +1,6 @@
 # XSD2THRIFT [![Build Status](https://travis-ci.org/tranchis/xsd2thrift.png?branch=master)](https://travis-ci.org/tranchis/xsd2thrift)
 
-This tool allows for converting XML Schema files (.xsd) to Thrift (.thrift) and
-Protocol Buffers (.proto).
+This tool allows for converting XML Schema files (.xsd) to Thrift (.thrift) and Protocol Buffers 2 /3 (.proto).
 
 ## Binary download
 
@@ -32,10 +31,12 @@ xsd2thrift has been tested on Java SE 6.
 ## Usage
 
 ```bash
-java xsd2thrift-1.0.jar [--thrift] [--protobuf] [--output=FILENAME] [--package=NAME]
+java -jar xsd2thrift-1.0.jar [--thrift] [--protobuf] [--output=FILENAME] [--package=NAME]
                         [--nestEnums=true|false] [--splitBySchema=true|false] filename.xsd
   --thrift                   : convert to Thrift
-  --protobuf                 : convert to Protocol Buffers
+  --protobuf                 : convert to Protocol Buffers 2
+  --proto2                   : convert to Protocol Buffers 2
+  --proto3                   : convert to Protocol Buffers 3
   --filename=FILENAME        : store the result in FILENAME instead of standard output
   --package=NAME             : set namespace/package of the output file
   --nestEnums=true|false     : nest enum declaration within messages that reference them, only supported by protobuf, defaults to true

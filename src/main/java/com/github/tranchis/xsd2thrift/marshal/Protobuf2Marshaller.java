@@ -4,19 +4,19 @@
  * ============================================================================
  *
  * XSD2Thrift
- * 
+ *
  * Copyright (C) 2009 Sergio Alvarez-Napagao http://www.sergio-alvarez.com
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA.
@@ -27,11 +27,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class ProtobufMarshaller implements IMarshaller {
+public class Protobuf2Marshaller implements IMarshaller {
 	private TreeMap<String, String> typeMapping;
 	private String indent = "";
 
-	public ProtobufMarshaller() {
+	public Protobuf2Marshaller() {
 		typeMapping = new TreeMap<String, String>();
 		typeMapping.put("positiveInteger", "int64");
 		typeMapping.put("nonPositiveInteger", "sint64");
@@ -68,16 +68,14 @@ public class ProtobufMarshaller implements IMarshaller {
 	}
 
 	@Override
-	public String writeHeader(String namespace) {
-		String res;
+	public String writeHeader(String namespace, String name) {
+		StringBuilder res = new StringBuilder();
 
 		if (namespace != null && !namespace.isEmpty()) {
-			res = "package " + namespace + ";\n\n";
-		} else {
-			res = "";
+			res.append("package ").append(namespace).append(";\n\n");
 		}
 
-		return res;
+		return res.toString();
 	}
 
 	@Override
@@ -189,4 +187,8 @@ public class ProtobufMarshaller implements IMarshaller {
 		}
 	}
 
+	@Override
+	public String getName() {
+		return "proto2";
+	}
 }
