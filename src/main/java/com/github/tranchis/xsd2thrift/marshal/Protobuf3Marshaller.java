@@ -23,9 +23,13 @@
  */
 package com.github.tranchis.xsd2thrift.marshal;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Protobuf3Marshaller implements IMarshaller {
     private TreeMap<String, String> typeMapping;
@@ -81,6 +85,7 @@ public class Protobuf3Marshaller implements IMarshaller {
             String classname = name.substring(0, name.lastIndexOf('.'));
             res.append("option java_outer_classname = \"").append(classname).append("\";\n");
         }
+        res.append("option java_multiple_files = true;\n");
         res.append("option optimize_for = SPEED;\n\n");
 
         return res.toString();
@@ -88,7 +93,7 @@ public class Protobuf3Marshaller implements IMarshaller {
 
     @Override
     public String writeEnumHeader(String name) {
-        final String result = writeIndent() + "enum " + name + "\n"
+        final String result = writeIndent() + "enum " + capitalize(name) + "\n"
                 + writeIndent() + "{\n";
         increaseIndent();
         return result;
@@ -107,7 +112,7 @@ public class Protobuf3Marshaller implements IMarshaller {
 
     @Override
     public String writeStructHeader(String name) {
-        final String result = writeIndent() + "message " + name + "\n{\n";
+        final String result = writeIndent() + "message " + capitalize(name) + "\n{\n";
         increaseIndent();
         return result;
     }
@@ -119,7 +124,16 @@ public class Protobuf3Marshaller implements IMarshaller {
 
         sRequired = getRequiredRepeated(required, repeated);
 
-        return writeIndent() + sRequired + " " + type + " " + name + " = "
+        Set<String> types = new HashSet<String>(typeMapping.values());
+        String paramType;
+        if (types.contains(type)) {
+            paramType = type;
+        } else {
+            paramType = capitalize(type);
+        }
+
+
+        return writeIndent() + sRequired + " " + paramType + " " + name + " = "
                 + order + ";\n";
     }
 
