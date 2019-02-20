@@ -66,15 +66,19 @@ public class Protobuf3Marshaller implements IMarshaller {
         typeMapping.put("base64Binary", "bytes");
 
         typeMapping.put("byte", "bytes");
-        typeMapping.put("date", "int32"); // Number of days since January 1st,
+        //typeMapping.put("date", "int32"); // Number of days since January 1st,
+        typeMapping.put("date", "google.protobuf.Timestamp"); // Number of days since January 1st,
         // 1970
-        typeMapping.put("dateTime", "int64"); // Number of milliseconds since
+        // typeMapping.put("dateTime", "int64"); // Number of milliseconds since
+        typeMapping.put("dateTime", "google.protobuf.Timestamp"); // Number of milliseconds since
         // January 1st, 1970
     }
 
     @Override
     public String writeHeader(String namespace, String name) {
         StringBuilder res = new StringBuilder("syntax = \"proto3\";\n\n");
+
+        res.append("import \"google/protobuf/timestamp.proto\";\n\n");
 
         if (namespace != null && !namespace.isEmpty()) {
             res.append("package ").append(namespace).append(";\n\n");
