@@ -78,11 +78,11 @@ public class Protobuf3Marshaller implements IMarshaller {
     public String writeHeader(String namespace, String name) {
         StringBuilder res = new StringBuilder("syntax = \"proto3\";\n\n");
 
-        res.append("import \"google/protobuf/timestamp.proto\";\n\n");
-
         if (namespace != null && !namespace.isEmpty()) {
             res.append("package ").append(namespace).append(";\n\n");
         }
+
+        res.append("import \"google/protobuf/timestamp.proto\";\n\n");
 
         res.append("option java_package = \"").append(namespace).append("\";\n");
         if (name != null && !"".equals(name)) {
